@@ -1,0 +1,84 @@
+﻿<Window x:Class="ColorPicker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ColorPicker"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="525" Width="830">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+          <Canvas x:Name="ImageCanvas" Grid.Column="0" Height="auto" Width="auto" Background="AliceBlue" ClipToBounds ="True" Focusable="True" AllowDrop="True" Drop="ImageCanvas_Drop" MouseLeftButtonDown="Canvas_MouseLeftButtonDown" MouseRightButtonDown="ImageCanvas_MouseRightButtonDown">
+            </Canvas>
+  
+        <Grid Name="colorStack" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0"  Orientation="Vertical"  HorizontalAlignment="Stretch" Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <TextBlock Text="16位颜色码："  VerticalAlignment="Center" />
+                    <TextBox Name="colorInput" Height="30" Width="220" FontSize="16" TextChanged="colorInput_TextChanged" />
+                    
+                </StackPanel>
+                <Separator Margin="5,10"  Foreground="White" Background="White"/>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <TextBlock Text="红色："   />
+                    <Slider  Minimum="0.0" Maximum="1.0"   Name="redBar" Height="30" Width="250" ValueChanged="Slider_ValueChanged"  Value="{Binding SliderRedValue, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <TextBlock Text="绿色："   />
+                    <Slider  Minimum="0.0" Maximum="1.0"  Name="greenBar" Height="30" Width="250" ValueChanged="Slider_ValueChanged"   Value="{Binding SliderGreenValue, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <TextBlock Text="蓝色："  />
+                    <Slider  Minimum="0.0" Maximum="1.0"  Name="blueBar" Height="30" Width="250" ValueChanged="Slider_ValueChanged"  Value="{Binding SliderBlueValue, Mode=TwoWay}" />
+                </StackPanel>
+            </StackPanel>
+            <!--显示0-1的颜色码-->
+            <!--显示0-255的颜色码-->
+            <StackPanel Grid.Row="1">
+                <!--label控件在数据绑定中无法设置字符串格式化！-->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock>红色（0-1）：</TextBlock>
+                    <TextBox IsReadOnly="True" VerticalAlignment="Center" Name="txtRedOne" Text="{Binding SliderRedValue, StringFormat=0.00 ,Mode=TwoWay }" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock>绿色（0-1）：</TextBlock>
+                    <TextBox IsReadOnly="True" VerticalAlignment="Center" Name="txtGreenOne" Text="{Binding SliderGreenValue, StringFormat=0.00 ,Mode=TwoWay }" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock>蓝色（0-1）：</TextBlock>
+                    <TextBox IsReadOnly="True" VerticalAlignment="Center" Name="txtBlueOne" Text="{Binding SliderBlueValue, StringFormat=0.00 ,Mode=TwoWay }" />
+                </StackPanel>
+                
+                <Separator Margin="5,10"  Foreground="White" Background="Gray"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock>红色（0-255）：</TextBlock>
+                    <TextBox IsReadOnly="True" VerticalAlignment="Center" Name="txtRedByte" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock>绿色（0-255）：</TextBlock>
+                    <TextBox IsReadOnly="True" VerticalAlignment="Center" Name="txtGreenByte"  />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock>蓝色（0-255）：</TextBlock>
+                    <TextBox IsReadOnly="True" VerticalAlignment="Center" Name="txtBlueByte" />
+                </StackPanel>
+                
+            </StackPanel>
+            <Canvas Name="colorCanvas" Grid.Row="2" Height="45" Width="300"   >
+                <Rectangle Name="colorDisplay"  Height="45" Width="300"  Stroke="Black" StrokeThickness="2" />
+            </Canvas>
+        </Grid>
+    </Grid>
+</Window>
